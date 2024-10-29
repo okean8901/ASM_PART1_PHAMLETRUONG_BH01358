@@ -22,6 +22,9 @@ public class Main {
             sm.addStudent(new Student(id, name, score));
         }
 
+
+
+
         // Display all students
         sm.displayStudents();
 

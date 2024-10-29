@@ -2,13 +2,12 @@ package Student_Stack;
 
 public class Main {
     public static void main(String[] args) {
-        StudentStack studentStack = new StudentStack(5); // khởi tạo stack với dung lượng là 5
-        // tạo student
+        StudentStack studentStack = new StudentStack(5);
+
         Student student1 = new Student("1", "Truong", 6);
         Student student2 = new Student("2", "Tien", 8);
         Student student3 = new Student("3", "Hien", 5);
 
-        // push student vào stack
         studentStack.push(student1);
         studentStack.push(student2);
         studentStack.push(student3);

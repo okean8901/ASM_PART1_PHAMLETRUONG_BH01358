@@ -8,10 +8,16 @@ class Student {
     private double score;
 
     public Student(int id, String name, double score) {
+
+        if (id < 0 )throw new IllegalArgumentException("id must be con-nagetive");
+        if (name == null || name.isEmpty()) throw new IllegalArgumentException("name cannot be null or empty");
+        if (score < 0.0 || score > 10.0) throw new IllegalArgumentException("Score must be between 0.0 and 10.0");
         this.id = id;
         this.name = name;
         this.score = score;
     }
+
+
 
     public int getId() {
         return id;
@@ -48,4 +54,6 @@ class Student {
                 ", ranking='" + getRanking() + '\'' +
                 '}';
     }
+
+
 }
