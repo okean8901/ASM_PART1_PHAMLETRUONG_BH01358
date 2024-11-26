@@ -3,15 +3,15 @@ package Student_Stack;
 //Lớp StudentStack được triển khai bằng cách sử dụng một mảng (Student[] stack) để lưu trữ các đối tượng Student.
 
 //class StudentStack {
-//    private Student[] stack;
-//    private int top;
-//    private int capacity;
+//        private Student[] stack;
+//        private int top;
+//        private int capacity;
 //
-//    public StudentStack(int size) {
-//        stack = new Student[size];
-//        capacity = size;
-//        top = -1;
-//    }
+//        public StudentStack(int size) {
+//            stack = new Student[size];
+//            capacity = size;
+//            top = -1;
+//        }
 //
 //    public void push(Student student) {
 //        if (top == capacity - 1) {

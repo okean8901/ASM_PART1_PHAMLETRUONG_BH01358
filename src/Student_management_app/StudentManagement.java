@@ -1,96 +1,73 @@
 package Student_management_app;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Stack;
+class Student {
+    private int id;
+    private String name;
+    private double score;
 
-class StudentManagement {
-    private Stack<Student> students;
-
-    public StudentManagement() {
-        this.students = new Stack<>();
+    public Student(int id, String name, double score) {
+        validateId(id);
+        validateName(name);
+        validateScore(score);
+        this.id = id;
+        this.name = name;
+        this.score = score;
     }
 
-    // Add a new student
-    public void addStudent(Student student) {
-        students.push(student);
-    }
-
-    // Update existing student's details
-    public void updateStudent(int id, String newName, double newScore) {
-        Stack<Student> tempStack = new Stack<>();
-        boolean found = false;
-
-        while (!students.isEmpty()) {
-            Student student = students.pop();
-            if (student.getId() == id) {
-                tempStack.push(new Student(id, newName, newScore));
-                found = true;
-            } else {
-                tempStack.push(student);
-            }
-        }
-
-        while (!tempStack.isEmpty()) {
-            students.push(tempStack.pop());
-        }
-
-        if (!found) {
-            System.out.println("student with ID " + id + " not found.");
+    private void validateId(int id) {
+        if (id < 0) {
+            throw new InvalidStudentDataException("ID must be non-negative");
         }
     }
 
-    // Delete a student by ID
-    public void deleteStudent(int id) {
-        Stack<Student> tempStack = new Stack<>();
-
-        while (!students.isEmpty()) {
-            Student student = students.pop();
-            if (student.getId() != id) {
-                tempStack.push(student);
-            }
+    private void validateName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new InvalidStudentDataException("Name cannot be null or empty");
         }
-
-        while (!tempStack.isEmpty()) {
-            students.push(tempStack.pop());
+        if (!name.matches("[a-zA-Z\\s]+")) {
+            throw new InvalidStudentDataException("Name contains invalid characters");
         }
     }
 
-    // Search for a student by ID
-    public Student searchStudent(int id) {
-        for (Student student : students) {
-            if (student.getId() == id) {
-                return student;
-            }
-        }
-        return null; // Not found
-    }
-
-
-
-    // Display all students
-    public void displayStudents() {
-        Stack<Student> tempStack = new Stack<>();
-
-        while (!students.isEmpty()) {
-            Student student = students.pop();
-            System.out.println(student);
-            tempStack.push(student);
-        }
-
-        while (!tempStack.isEmpty()) {
-            students.push(tempStack.pop());
+    private void validateScore(double score) {
+        if (score < 0.0 || score > 10.0) {
+            throw new InvalidStudentDataException("Score must be between 0.0 and 10.0");
         }
     }
 
-    // Sort students by score
-    public void sortStudents() {
-        List<Student> studentList = new ArrayList<>(students);
-        studentList.sort(Comparator.comparingDouble(Student::getScore));
-        students.clear();
-        for (Student student : studentList) {
-            students.push(student);
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public String getRanking() {
+        if (score < 5.0) {
+            return "Fail";
+        } else if (score < 6.5) {
+            return "Medium";
+        } else if (score < 7.5) {
+            return "Good";
+        } else if (score < 9.0) {
+            return "Very Good";
+        } else {
+            return "Excellent";
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", score=" + score +
+                ", ranking='" + getRanking() + '\'' +
+                '}';
     }
 }

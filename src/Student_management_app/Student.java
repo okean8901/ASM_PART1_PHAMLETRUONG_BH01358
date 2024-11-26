@@ -1,59 +1,97 @@
 package Student_management_app;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Stack;
 
-class Student {
-    private int id;
-    private String name;
-    private double score;
+class StudentManagement {
+    private Stack<Student> students;
 
-    public Student(int id, String name, double score) {
-
-        if (id < 0 )throw new IllegalArgumentException("id must be con-nagetive");
-        if (name == null || name.isEmpty()) throw new IllegalArgumentException("name cannot be null or empty");
-        if (score < 0.0 || score > 10.0) throw new IllegalArgumentException("Score must be between 0.0 and 10.0");
-        this.id = id;
-        this.name = name;
-        this.score = score;
+    public StudentManagement() {
+        this.students = new Stack<>();
     }
 
-
-
-    public int getId() {
-        return id;
+    // Thêm sinh viên mới
+    public void addStudent(Student student) {
+        if (searchStudent(student.getId()) != null) {
+            throw new DuplicateStudentException("Student ID already exists");
+        }
+        students.push(student);
     }
 
-    public String getName() {
-        return name;
-    }
+    // Cập nhật thông tin sinh viên
+    public void updateStudent(int id, String newName, double newScore) {
+        Stack<Student> tempStack = new Stack<>();
+        boolean found = false;
 
-    public double getScore() {
-        return score;
-    }
+        while (!students.isEmpty()) {
+            Student student = students.pop();
+            if (student.getId() == id) {
+                tempStack.push(new Student(id, newName, newScore));
+                found = true;
+            } else {
+                tempStack.push(student);
+            }
+        }
 
-    public String getRanking() {
-        if (score < 5.0) {
-            return "Fail";
-        } else if (score < 6.5) {
-            return "Medium";
-        } else if (score < 7.5) {
-            return "Good";
-        } else if (score < 9.0) {
-            return "Very Good";
-        } else {
-            return "Excellent";
+        while (!tempStack.isEmpty()) {
+            students.push(tempStack.pop());
+        }
+
+        if (!found) {
+            System.out.println("Student with ID " + id + " not found.");
         }
     }
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", score=" + score +
-                ", ranking='" + getRanking() + '\'' +
-                '}';
+    // Xóa sinh viên theo ID
+    public void deleteStudent(int id) {
+        Stack<Student> tempStack = new Stack<>();
+
+        while (!students.isEmpty()) {
+            Student student = students.pop();
+            if (student.getId() != id) {
+                tempStack.push(student);
+            }
+        }
+
+        while (!tempStack.isEmpty()) {
+            students.push(tempStack.pop());
+        }
     }
 
+    // Tìm sinh viên theo ID
+    public Student searchStudent(int id) {
+        for (Student student : students) {
+            if (student.getId() == id) {
+                return student;
+            }
+        }
+        return null; // Không tìm thấy
+    }
 
+    // Hiển thị tất cả sinh viên
+    public void displayStudents() {
+        Stack<Student> tempStack = new Stack<>();
+
+        while (!students.isEmpty()) {
+            Student student = students.pop();
+            System.out.println(student);
+            tempStack.push(student);
+        }
+
+        while (!tempStack.isEmpty()) {
+            students.push(tempStack.pop());
+        }
+    }
+
+    // Sắp xếp sinh viên theo điểm
+    public void sortStudents() {
+        List<Student> studentList = new ArrayList<>(students);
+        studentList.sort(Comparator.comparingDouble(Student::getScore));
+        students.clear();
+        for (Student student : studentList) {
+            students.push(student);
+        }
+    }
 }

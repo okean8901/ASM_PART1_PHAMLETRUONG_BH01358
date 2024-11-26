@@ -2,7 +2,7 @@ package Sort;
 import java.util.Random;
 public class Main {
     public static void main(String[] args) {
-        int size = 1000;
+        int size = 10;
         int[] array1 = generateRandomArray(size);
         int[] array2 = array1.clone();
 
