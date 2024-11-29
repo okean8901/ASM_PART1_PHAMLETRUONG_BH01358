@@ -1,4 +1,4 @@
-package Student_management_app;
+package Student_management_app_scenario;
 
 import java.util.Scanner;
 
@@ -31,7 +31,6 @@ public class Main {
                 i--; // Retry this iteration
             }
         }
-
         int choice;
         do {
             System.out.println("\nMenu:");

@@ -1,4 +1,4 @@
-package Student_management_app;
+package Student_management_app_scenario;
 
 class Student {
     private int id;

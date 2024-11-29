@@ -1,4 +1,4 @@
-package Student_management_app;
+package Student_management_app_scenario;
 
 class StudentManagement {
     private Stack<Student> students;
