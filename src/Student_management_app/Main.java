@@ -25,8 +25,10 @@ public class Main {
                 sm.addStudent(new Student(id, name, score));  // Có thể ném ngoại lệ
             } catch (IllegalArgumentException e) {
                 System.out.println("Error: " + e.getMessage()); // Xử lý ngoại lệ đầu vào không hợp lệ
+                i--; // Retry this iteration
             } catch (DuplicateStudentException e) {
                 System.out.println("Error: " + e.getMessage()); // Xử lý ID trùng lặp
+                i--; // Retry this iteration
             }
         }
 
@@ -92,10 +94,42 @@ public class Main {
                     break;
 
                 case 5:
-                    // Sắp xếp và hiển thị sinh viên
-                    sm.sortStudents(); // Sắp xếp sinh viên theo điểm số
-                    System.out.println("Students sorted by score:");
-                    sm.displayStudents();
+                    // Sorting submenu
+                    int sortChoice;
+                    do {
+                        System.out.println("\nSort Menu:");
+                        System.out.println("1. Sort by Quick Sort (Default)");
+                        System.out.println("2. Sort by Bubble Sort");
+                        System.out.println("3. Sort by Merge Sort");
+                        System.out.println("4. Return to Main Menu");
+                        System.out.print("Enter your sorting choice: ");
+
+                        sortChoice = scanner.nextInt();
+                        scanner.nextLine(); // Consume newline
+
+                        switch (sortChoice) {
+                            case 1:
+                                sm.sortStudents(); // Quick Sort
+                                System.out.println("Students sorted by Quick Sort (score ascending):");
+                                sm.displayStudents();
+                                break;
+                            case 2:
+                                sm.bubbleSort();
+                                System.out.println("Students sorted by Bubble Sort (score ascending):");
+                                sm.displayStudents();
+                                break;
+                            case 3:
+                                sm.mergeSort();
+                                System.out.println("Students sorted by Merge Sort (score ascending):");
+                                sm.displayStudents();
+                                break;
+                            case 4:
+                                System.out.println("Returning to Main Menu.");
+                                break;
+                            default:
+                                System.out.println("Invalid sorting choice. Please try again.");
+                        }
+                    } while (sortChoice != 4);
                     break;
 
                 case 6:
