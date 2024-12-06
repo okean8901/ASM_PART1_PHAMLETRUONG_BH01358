@@ -77,18 +77,7 @@ public class StudentStack {
     }
 
     // Update a student in the stack
-    public boolean updateStudent(int id, String newName, double newScore) {
-        Node current = top;
-        while (current != null) {
-            if (current.data.getId() == id) {
-                // Create a new Student object with updated details
-                current.data = new Student(id, newName, newScore);
-                return true;
-            }
-            current = current.next;
-        }
-        return false;
-    }
+
 
     // Delete a student from the stack
     public boolean deleteStudent(int id) {

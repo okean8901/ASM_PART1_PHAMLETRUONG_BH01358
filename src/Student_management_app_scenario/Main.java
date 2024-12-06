@@ -1,5 +1,6 @@
 package Student_management_app_scenario;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -13,23 +14,32 @@ public class Main {
         scanner.nextLine(); // Consume newline
 
         // Thêm sinh viên vào danh sách
+
+//        for (int i = 0; i < numberOfStudents; i++) {
+//            try {
+//                System.out.print("Enter ID: ");
+//                int id = scanner.nextInt();
+//                scanner.nextLine(); // Consume newline
+//                System.out.print("Enter Name: ");
+//                String name = scanner.nextLine();
+//                System.out.print("Enter Score: ");
+//                double score = scanner.nextDouble();
+//                sm.addStudent(new Student(id, name, score));  // Có thể ném ngoại lệ
+//            } catch (IllegalArgumentException e) {
+//                System.out.println("Error: " + e.getMessage()); // Xử lý ngoại lệ đầu vào không hợp lệ
+//                i--; // Retry this iteration
+//            } catch (DuplicateStudentException e) {
+//                System.out.println("Error: " + e.getMessage()); // Xử lý ID trùng lặp
+//                i--; // Retry this iteration
+//            }
+//        }
+
         for (int i = 0; i < numberOfStudents; i++) {
-            try {
-                System.out.print("Enter ID: ");
-                int id = scanner.nextInt();
-                scanner.nextLine(); // Consume newline
-                System.out.print("Enter Name: ");
-                String name = scanner.nextLine();
-                System.out.print("Enter Score: ");
-                double score = scanner.nextDouble();
-                sm.addStudent(new Student(id, name, score));  // Có thể ném ngoại lệ
-            } catch (IllegalArgumentException e) {
-                System.out.println("Error: " + e.getMessage()); // Xử lý ngoại lệ đầu vào không hợp lệ
-                i--; // Retry this iteration
-            } catch (DuplicateStudentException e) {
-                System.out.println("Error: " + e.getMessage()); // Xử lý ID trùng lặp
-                i--; // Retry this iteration
-            }
+            int id = i + 1;
+            String name = "Nguyen Van An";
+            double score = new Random().nextInt(11); // Generates random score between 0 and 10
+
+            sm.addStudent(new Student(id, name + id, score)); // Adds a student
         }
         int choice;
         do {
@@ -108,18 +118,66 @@ public class Main {
 
                         switch (sortChoice) {
                             case 1:
+                                // Quick Sort timing and space
+                                long quickStartTime = System.currentTimeMillis();
+                                Runtime quickRuntime = Runtime.getRuntime();
+                                long quickMemoryBefore = quickRuntime.totalMemory() - quickRuntime.freeMemory();
+
                                 sm.sortStudents(); // Quick Sort
+
+                                long quickEndTime = System.currentTimeMillis();
+                                long quickMemoryAfter = quickRuntime.totalMemory() - quickRuntime.freeMemory();
+
+                                long quickExecutionTime = quickEndTime - quickStartTime;
+                                long quickMemoryUsed = quickMemoryAfter - quickMemoryBefore;
+
                                 System.out.println("Students sorted by Quick Sort (score ascending):");
+                                System.out.println("Execution Time: " + quickExecutionTime + " milliseconds");
+                                System.out.println("Memory Used: " + quickMemoryUsed + " bytes");
+                                System.out.println("Time Complexity: O(n log n) average case");
+                                System.out.println("Space Complexity: O(log n) due to recursion");
                                 sm.displayStudents();
                                 break;
                             case 2:
+                                // Bubble Sort timing and space
+                                long bubbleStartTime = System.currentTimeMillis();
+                                Runtime bubbleRuntime = Runtime.getRuntime();
+                                long bubbleMemoryBefore = bubbleRuntime.totalMemory() - bubbleRuntime.freeMemory();
+
                                 sm.bubbleSort();
+
+                                long bubbleEndTime = System.currentTimeMillis();
+                                long bubbleMemoryAfter = bubbleRuntime.totalMemory() - bubbleRuntime.freeMemory();
+
+                                long bubbleExecutionTime = bubbleEndTime - bubbleStartTime;
+                                long bubbleMemoryUsed = bubbleMemoryAfter - bubbleMemoryBefore;
+
                                 System.out.println("Students sorted by Bubble Sort (score ascending):");
+                                System.out.println("Execution Time: " + bubbleExecutionTime + " milliseconds");
+                                System.out.println("Memory Used: " + bubbleMemoryUsed + " bytes");
+                                System.out.println("Time Complexity: O(n^2)");
+                                System.out.println("Space Complexity: O(1)");
                                 sm.displayStudents();
                                 break;
                             case 3:
+                                // Merge Sort timing and space
+                                long mergeStartTime = System.currentTimeMillis();
+                                Runtime mergeRuntime = Runtime.getRuntime();
+                                long mergeMemoryBefore = mergeRuntime.totalMemory() - mergeRuntime.freeMemory();
+
                                 sm.mergeSort();
+
+                                long mergeEndTime = System.currentTimeMillis();
+                                long mergeMemoryAfter = mergeRuntime.totalMemory() - mergeRuntime.freeMemory();
+
+                                long mergeExecutionTime = mergeEndTime - mergeStartTime;
+                                long mergeMemoryUsed = mergeMemoryAfter - mergeMemoryBefore;
+
                                 System.out.println("Students sorted by Merge Sort (score ascending):");
+                                System.out.println("Execution Time: " + mergeExecutionTime + " milliseconds");
+                                System.out.println("Memory Used: " + mergeMemoryUsed + " bytes");
+                                System.out.println("Time Complexity: O(n log n)");
+                                System.out.println("Space Complexity: O(n)");
                                 sm.displayStudents();
                                 break;
                             case 4:

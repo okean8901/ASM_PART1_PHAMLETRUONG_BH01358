@@ -4,15 +4,26 @@ class Student {
     private int id;
     private String name;
     private double score;
-
-    public Student(int id, String name, double score) {
-        validateId(id);
-        validateName(name);
-        validateScore(score);
+    public Student(int id, String name, double score) throws InvalidStudentDataException {
+        if (!name.matches("[a-zA-Z0-9\\s]+"))
+//        if (!name.matches("[a-zA-Z\\s]+"))
+        // Validate name for alphabetic characters and spaces
+        {
+            throw new InvalidStudentDataException("Name contains invalid characters");
+        }
         this.id = id;
         this.name = name;
         this.score = score;
     }
+
+//    public Student(int id, String name, double score) {
+//        validateId(id);
+//        validateName(name);
+//        validateScore(score);
+//        this.id = id;
+//        this.name = name;
+//        this.score = score;
+//    }
 
     private void validateId(int id) {
         if (id < 0) {

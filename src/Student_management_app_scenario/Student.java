@@ -137,6 +137,7 @@ class StudentManagement {
         // Convert stack to array for sorting
         Student[] studentArray = new Student[students.size()];
         int index = 0;
+
         Stack<Student> tempStack = new Stack<>();
 
         while (!students.isEmpty()) {
@@ -164,6 +165,7 @@ class StudentManagement {
             // Find the middle point
             int mid = left + (right - left) / 2;
 
+
             // Sort first and second halves
             mergeSortRecursive(arr, left, mid);
             mergeSortRecursive(arr, mid + 1, right);
@@ -172,7 +174,6 @@ class StudentManagement {
             merge(arr, left, mid, right);
         }
     }
-
     private void merge(Student[] arr, int left, int mid, int right) {
         // Find sizes of two subarrays to be merged
         int n1 = mid - left + 1;
